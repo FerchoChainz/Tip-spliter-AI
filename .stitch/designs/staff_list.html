@@ -1,0 +1,343 @@
+<!DOCTYPE html>
+
+<html class="light" lang="en"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>Staff Management - Gratuity</title>
+<!-- Google Fonts: Geist & Geist Mono -->
+<link href="https://fonts.googleapis.com" rel="preconnect"/>
+<link crossorigin="" href="https://fonts.gstatic.com" rel="preconnect"/>
+<link href="https://fonts.googleapis.com/css2?family=Geist+Mono:wght@100..900&amp;family=Geist:wght@100..900&amp;display=swap" rel="stylesheet"/>
+<!-- Material Symbols -->
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<!-- Tailwind CSS -->
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<!-- Tailwind Config based on Brand Anchors -->
+<script id="tailwind-config">
+        tailwind.config = {
+            darkMode: "class",
+            theme: {
+                extend: {
+                    "colors": {
+                        "on-surface": "#1b1b1e",
+                        "error": "#ba1a1a",
+                        "secondary-fixed": "#e3e1ec",
+                        "on-primary-fixed-variant": "#005236",
+                        "on-error": "#ffffff",
+                        "surface-tint": "#006c49",
+                        "on-background": "#1b1b1e",
+                        "on-error-container": "#93000a",
+                        "on-tertiary-container": "#2c3a4c",
+                        "error-container": "#ffdad6",
+                        "on-tertiary-fixed": "#0d1c2d",
+                        "primary": "#006c49",
+                        "on-primary": "#ffffff",
+                        "primary-fixed-dim": "#4edea3",
+                        "on-tertiary": "#ffffff",
+                        "surface-dim": "#dcd9dd",
+                        "on-primary-container": "#00422b",
+                        "on-tertiary-fixed-variant": "#39485a",
+                        "tertiary-fixed-dim": "#b9c8de",
+                        "tertiary": "#516072",
+                        "on-secondary-fixed-variant": "#46464e",
+                        "surface-variant": "#e4e1e6",
+                        "pure-surface": "#FFFFFF",
+                        "whisper-border": "rgba(226,232,240,0.5)",
+                        "background": "#fbf8fc",
+                        "outline-variant": "#bbcabf",
+                        "secondary-fixed-dim": "#c6c5cf",
+                        "on-secondary-container": "#63646c",
+                        "error-rose": "#E11D48",
+                        "on-secondary-fixed": "#1a1b22",
+                        "surface-container-high": "#eae7eb",
+                        "secondary-container": "#e3e1ec",
+                        "on-secondary": "#ffffff",
+                        "surface-container-low": "#f6f2f7",
+                        "tertiary-container": "#95a4b9",
+                        "primary-container": "#10b981",
+                        "surface-container-highest": "#e4e1e6",
+                        "primary-fixed": "#6ffbbe",
+                        "inverse-primary": "#4edea3",
+                        "tertiary-fixed": "#d4e4fa",
+                        "outline": "#6c7a71",
+                        "on-primary-fixed": "#002113",
+                        "on-surface-variant": "#3c4a42",
+                        "surface-bright": "#fbf8fc",
+                        "secondary": "#5d5e66",
+                        "surface": "#fbf8fc",
+                        "surface-container-lowest": "#ffffff",
+                        "canvas-white": "#F9FAFB",
+                        "inverse-surface": "#303033",
+                        "surface-container": "#f0edf1",
+                        "inverse-on-surface": "#f3f0f4"
+                    },
+                    "borderRadius": {
+                        "DEFAULT": "0.25rem",
+                        "lg": "0.5rem",
+                        "xl": "0.75rem",
+                        "full": "9999px"
+                    },
+                    "spacing": {
+                        "margin-desktop": "4rem",
+                        "margin-mobile": "1rem",
+                        "container-max": "1400px",
+                        "margin-tablet": "2rem",
+                        "gutter": "2rem",
+                        "section-gap-mobile": "clamp(3rem, 8vw, 6rem)",
+                        "section-gap-desktop": "clamp(6rem, 10vw, 12rem)"
+                    },
+                    "fontFamily": {
+                        "body-lg": ["Geist"],
+                        "label-sm": ["Geist"],
+                        "body-md": ["Geist"],
+                        "display-xl": ["Geist"],
+                        "headline-lg": ["Geist"],
+                        "mono-data": ["Geist Mono"],
+                        "headline-md": ["Geist"]
+                    },
+                    "fontSize": {
+                        "body-lg": ["1.125rem", { "lineHeight": "1.65", "fontWeight": "400" }],
+                        "label-sm": ["0.8125rem", { "lineHeight": "1.2", "fontWeight": "500" }],
+                        "body-md": ["1rem", { "lineHeight": "1.65", "fontWeight": "400" }],
+                        "display-xl": ["clamp(2.25rem, 5vw, 3.75rem)", { "lineHeight": "1.1", "letterSpacing": "-0.025em", "fontWeight": "800" }],
+                        "headline-lg": ["2.5rem", { "lineHeight": "1.2", "letterSpacing": "-0.02em", "fontWeight": "700" }],
+                        "mono-data": ["0.8125rem", { "lineHeight": "1", "fontWeight": "400" }],
+                        "headline-md": ["1.75rem", { "lineHeight": "1.25", "fontWeight": "700" }]
+                    }
+                }
+            }
+        }
+    </script>
+<style>
+        /* Custom Utilities for subtle interactions */
+        .glass-card {
+            background: linear-gradient(145deg, rgba(255,255,255,1) 0%, rgba(255,255,255,0.9) 100%);
+            backdrop-filter: blur(10px);
+        }
+        .bento-hover {
+            transition: transform 0.3s cubic-bezier(0.2, 0.8, 0.2, 1), box-shadow 0.3s cubic-bezier(0.2, 0.8, 0.2, 1);
+        }
+        .bento-hover:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 20px 50px -15px rgba(0,0,0,0.08);
+        }
+    </style>
+<style>
+    body {
+      min-height: max(884px, 100dvh);
+    }
+  </style>
+  </head>
+<body class="bg-background text-on-surface font-body-md text-body-md min-h-[884px] flex flex-col antialiased selection:bg-primary-fixed selection:text-on-primary-fixed">
+<!-- TopAppBar -->
+<header class="bg-background/80 dark:bg-background/80 backdrop-blur-md full-width top-0 sticky flex justify-between items-center w-full px-margin-mobile md:px-margin-desktop py-4 z-40">
+<!-- Leading Avatar -->
+<div class="flex items-center gap-4">
+<div class="w-10 h-10 rounded-full overflow-hidden border-[1px] border-whisper-border bg-surface-container-highest shrink-0">
+<img alt="Executive Chef Profile" class="w-full h-full object-cover grayscale hover:grayscale-0 transition-all duration-500" data-alt="A minimalist, high-end professional headshot of a restaurant executive chef. The portrait is captured with a modern corporate aesthetic, featuring bright, even lighting and a clinical off-white background. The subject is framed symmetrically with a neutral expression. The visual style embodies a 'Gallery-Airy' feel, utilizing subtle tonal shifts and deep zinc-blacks for contrast, without any heavy shadows or distracting elements, suitable for a sophisticated financial or management application interface." src="https://lh3.googleusercontent.com/aida-public/AB6AXuDfsC5OVP-mEQ3I1sbUB0dvUayb-vh8_nrsO1tsUcvtu0rbR0xnb4WPL5IbIFtDbo9Z6-YNclvEpdKLVaseeq5HIYzgnNe9oBQqfW97E4moqfjI41ghMrQ96Q1vweGeCSuZ5cfWAWaqeY7hNJpL4NRkULCu1wJBF2NwMJj7zOZqAnkYFak-E8dNeYodWmOzcpCJ6W-yyjtnLX6e_Tp6KvzDc-zWfS-_Scwhm3C11J-jSSbkYJRGtAVzVLq_wfxHvNiH-0MR9I5fYy8"/>
+</div>
+<!-- Brand Logo -->
+<h1 class="font-headline-md text-headline-md text-on-surface dark:text-inverse-on-surface tracking-tight hidden sm:block">
+                Gratuity
+            </h1>
+</div>
+<!-- Desktop Navigation Cluster (Injected from BottomNavBar structure logic) -->
+<nav class="hidden md:flex items-center gap-8 absolute left-1/2 -translate-x-1/2">
+<a class="text-on-surface-variant dark:text-outline font-label-sm text-label-sm hover:opacity-80 transition-opacity flex items-center gap-2" href="#">
+<span class="material-symbols-outlined" style="font-size: 1.25rem;">home</span>
+                Home
+            </a>
+<a class="text-on-surface-variant dark:text-outline font-label-sm text-label-sm hover:opacity-80 transition-opacity flex items-center gap-2" href="#">
+<span class="material-symbols-outlined" style="font-size: 1.25rem;">analytics</span>
+                Summary
+            </a>
+<!-- Active State -->
+<a class="text-primary dark:text-primary-fixed-dim font-label-sm text-label-sm hover:opacity-80 transition-opacity flex items-center gap-2 relative" href="#">
+<span class="material-symbols-outlined" style="font-variation-settings: 'FILL' 1; font-size: 1.25rem;">group</span>
+                Staff
+                <div class="absolute -bottom-2 left-0 w-full h-[2px] bg-primary rounded-full"></div>
+</a>
+<a class="text-on-surface-variant dark:text-outline font-label-sm text-label-sm hover:opacity-80 transition-opacity flex items-center gap-2" href="#">
+<span class="material-symbols-outlined" style="font-size: 1.25rem;">settings</span>
+                Settings
+            </a>
+</nav>
+<!-- Trailing Icon -->
+<button class="w-10 h-10 flex items-center justify-center rounded-full hover:bg-surface-container-high transition-colors group">
+<span class="material-symbols-outlined text-on-surface-variant group-hover:text-primary transition-colors">notifications</span>
+</button>
+</header>
+<!-- Main Canvas -->
+<main class="flex-grow w-full max-w-container-max mx-auto px-margin-mobile md:px-margin-desktop pt-8 pb-[100px] md:pb-24">
+<!-- Architectural Header Section -->
+<section class="mb-12 md:mb-16 flex flex-col md:flex-row md:items-end justify-between gap-6 border-b border-whisper-border pb-8">
+<div class="max-w-2xl">
+<h2 class="font-display-xl text-display-xl text-on-surface mb-2">Staff Roster</h2>
+<p class="font-body-lg text-body-lg text-secondary">Manage personnel and review current week gratuity distributions. Values update in real-time based on terminal closures.</p>
+</div>
+<!-- Contextual Quick Action (Filters/Sort) -->
+<div class="flex items-center gap-3 shrink-0">
+<button class="flex items-center gap-2 px-4 py-2 rounded-lg border border-whisper-border bg-pure-surface text-secondary hover:text-on-surface font-label-sm text-label-sm transition-colors bento-hover shadow-[0_-15px_40px_-15px_rgba(0,0,0,0.05)]">
+<span class="material-symbols-outlined text-[18px]">filter_list</span>
+                    Filter
+                </button>
+<button class="flex items-center gap-2 px-4 py-2 rounded-lg border border-whisper-border bg-pure-surface text-secondary hover:text-on-surface font-label-sm text-label-sm transition-colors bento-hover shadow-[0_-15px_40px_-15px_rgba(0,0,0,0.05)]">
+<span class="material-symbols-outlined text-[18px]">swap_vert</span>
+                    Sort
+                </button>
+</div>
+</section>
+<!-- Asymmetric Bento Grid for Staff List -->
+<section class="grid grid-cols-1 md:grid-cols-12 gap-gutter auto-rows-min">
+<!-- Staff Card 1: Featured / Top Earner (Span 8) -->
+<article class="col-span-1 md:col-span-7 bg-pure-surface border border-whisper-border rounded-xl p-6 md:p-8 flex flex-col sm:flex-row items-start sm:items-center justify-between gap-6 bento-hover shadow-[0_-15px_40px_-15px_rgba(0,0,0,0.05)] relative overflow-hidden group cursor-pointer">
+<!-- Subtle background accent -->
+<div class="absolute -right-20 -top-20 w-64 h-64 bg-primary-fixed/10 rounded-full blur-3xl group-hover:bg-primary-fixed/20 transition-colors duration-700"></div>
+<div class="flex items-center gap-6 z-10">
+<div class="w-16 h-16 rounded-full overflow-hidden border border-whisper-border shrink-0">
+<img alt="Elara Vance" class="w-full h-full object-cover" data-alt="A minimalist, high-end professional headshot of a female restaurant lead server. The portrait is captured with a modern corporate aesthetic, featuring bright, even lighting and a clinical off-white background. The subject is framed symmetrically with a neutral expression. The visual style embodies a 'Gallery-Airy' feel, utilizing subtle tonal shifts and deep zinc-blacks for contrast, without any heavy shadows or distracting elements, suitable for a sophisticated financial interface." src="https://lh3.googleusercontent.com/aida-public/AB6AXuA1QCt2jlKmE22eNvuBY_rKgTWuZg43jzfmh6iilYOBaBwF67y4Rq3A_i2um1svkpcAIg2kcY9Rm5d9ZmGopkQQ_hIjrT82hoQTtPFjsRt06PIuQySUOS7ThIV1PEre673YupH4najZtLPJXNZhCfZairOZmjq23SGkkQxlUjULfJmQBj-coN37yVS-9e4fVJXNa1NnJKCYaiLHKrDJHgwFuK8gomNYQ64CKoDJeZhVm9pnPrSSbfcmPQeLAZLlg75lLZhA8j7ALfk"/>
+</div>
+<div>
+<h3 class="font-headline-md text-headline-md text-on-surface mb-1">Elara Vance</h3>
+<span class="inline-block px-3 py-1 rounded-full border border-whisper-border bg-surface-container-low text-secondary font-label-sm text-label-sm">
+                            Lead Server
+                        </span>
+</div>
+</div>
+<div class="flex flex-col items-start sm:items-end z-10 w-full sm:w-auto mt-4 sm:mt-0 pt-4 sm:pt-0 border-t sm:border-t-0 border-whisper-border">
+<span class="font-label-sm text-label-sm text-tertiary uppercase tracking-wider mb-1">Week Total</span>
+<span class="font-mono-data text-headline-lg text-primary tracking-tight">$845.50</span>
+</div>
+</article>
+<!-- Staff Card 2: Standard (Span 5) -->
+<article class="col-span-1 md:col-span-5 bg-pure-surface border border-whisper-border rounded-xl p-6 flex flex-col justify-between gap-6 bento-hover shadow-[0_-15px_40px_-15px_rgba(0,0,0,0.05)] cursor-pointer">
+<div class="flex items-center justify-between">
+<div class="w-12 h-12 rounded-full overflow-hidden border border-whisper-border shrink-0">
+<img alt="Julian Reed" class="w-full h-full object-cover grayscale" data-alt="A minimalist, high-end professional headshot of a male restaurant sous chef. The portrait is captured with a modern corporate aesthetic, featuring bright, even lighting and a clinical off-white background. The subject is framed symmetrically with a neutral expression. The visual style embodies a 'Gallery-Airy' feel, utilizing subtle tonal shifts and deep zinc-blacks for contrast, without any heavy shadows or distracting elements, suitable for a sophisticated interface." src="https://lh3.googleusercontent.com/aida-public/AB6AXuBEP3y-UqEQgH77bYOnpbo1Yn2IcVPJvLu-CbCxQO2mS3N7LgcyKCKk7Lc4oNuaynlcAQaYkjz7iW911CmjVFMmmnHkXnMXTSzh2JiruD3tSby36xalomluT39CgtNgsWFYoj1igY7wDCv3K1eAPPkEp33d9fzKZ-_y2dzpmxih84u4tP9RBjcyxfuKSxKIo1arTEZWjbRxafJqWem5xQUKHiiCwEtjKD1UD47t2R-AODtChv8rOvqw9sZdnois6pvh9Qlh0CL9vac"/>
+</div>
+<button class="w-8 h-8 rounded-full flex items-center justify-center hover:bg-surface-container-highest transition-colors">
+<span class="material-symbols-outlined text-secondary text-[20px]">more_horiz</span>
+</button>
+</div>
+<div>
+<h3 class="font-headline-md text-body-lg font-bold text-on-surface">Julian Reed</h3>
+<p class="font-label-sm text-label-sm text-secondary mt-1">Sous Chef</p>
+</div>
+<div class="pt-4 border-t border-whisper-border flex justify-between items-end">
+<span class="font-label-sm text-label-sm text-tertiary">Tips</span>
+<span class="font-mono-data text-[1.25rem] text-on-surface">$520.00</span>
+</div>
+</article>
+<!-- Staff Card 3: Standard (Span 4) -->
+<article class="col-span-1 md:col-span-4 bg-pure-surface border border-whisper-border rounded-xl p-6 flex flex-col justify-between gap-6 bento-hover shadow-[0_-15px_40px_-15px_rgba(0,0,0,0.05)] cursor-pointer">
+<div class="flex items-center justify-between">
+<div class="w-12 h-12 rounded-full overflow-hidden border border-whisper-border shrink-0">
+<img alt="Maya Lin" class="w-full h-full object-cover grayscale" data-alt="A minimalist, high-end professional headshot of a female restaurant bartender. The portrait is captured with a modern corporate aesthetic, featuring bright, even lighting and a clinical off-white background. The subject is framed symmetrically with a neutral expression. The visual style embodies a 'Gallery-Airy' feel, utilizing subtle tonal shifts and deep zinc-blacks for contrast, without any heavy shadows or distracting elements." src="https://lh3.googleusercontent.com/aida-public/AB6AXuAg2eAS92O-vwHoGQOmGLEiy4oQPhB0-PU1EAtRaPq6M8DrN8KRXK8D0qiBoEoDKs6VF8Hy7lKugcXud9ZFJDAZw_fYaKeNHQFIaT5FrUbzY_eL5Ml293trkht3oTeIFGywR8goV7-r986mt-EG6iGdNMjYPpqOBx-O58cZgYMzdZsEYyAfI61PE4aGZQZ6lJQg-hnexu1NiZ5AB9EWyZbMfBf8z4PFByCs6Q7Jv1HBvmmKzcMKoUsKIIhNAVFFYqGaWGGGXQKGKRk"/>
+</div>
+<button class="w-8 h-8 rounded-full flex items-center justify-center hover:bg-surface-container-highest transition-colors">
+<span class="material-symbols-outlined text-secondary text-[20px]">more_horiz</span>
+</button>
+</div>
+<div>
+<h3 class="font-headline-md text-body-lg font-bold text-on-surface">Maya Lin</h3>
+<p class="font-label-sm text-label-sm text-secondary mt-1">Bartender</p>
+</div>
+<div class="pt-4 border-t border-whisper-border flex justify-between items-end">
+<span class="font-label-sm text-label-sm text-tertiary">Tips</span>
+<span class="font-mono-data text-[1.25rem] text-on-surface">$610.25</span>
+</div>
+</article>
+<!-- Staff Card 4: Standard (Span 8) -->
+<article class="col-span-1 md:col-span-8 bg-pure-surface border border-whisper-border rounded-xl p-6 md:p-8 flex flex-col sm:flex-row items-start sm:items-center justify-between gap-6 bento-hover shadow-[0_-15px_40px_-15px_rgba(0,0,0,0.05)] cursor-pointer">
+<div class="flex items-center gap-6">
+<div class="w-14 h-14 rounded-full overflow-hidden border border-whisper-border shrink-0 bg-surface-container">
+<span class="material-symbols-outlined w-full h-full flex items-center justify-center text-tertiary" style="font-size: 24px;">person</span>
+</div>
+<div>
+<h3 class="font-headline-md text-body-lg font-bold text-on-surface">Samir Patel</h3>
+<p class="font-label-sm text-label-sm text-secondary mt-1">Host / Maitre D'</p>
+</div>
+</div>
+<div class="flex flex-col items-start sm:items-end w-full sm:w-auto mt-4 sm:mt-0 pt-4 sm:pt-0 border-t sm:border-t-0 border-whisper-border">
+<span class="font-label-sm text-label-sm text-tertiary uppercase tracking-wider mb-1">Week Total</span>
+<span class="font-mono-data text-headline-md text-on-surface tracking-tight">$280.00</span>
+</div>
+</article>
+<!-- Staff Card 5: Standard (Span 6) -->
+<article class="col-span-1 md:col-span-6 bg-pure-surface border border-whisper-border rounded-xl p-6 flex items-center justify-between gap-6 bento-hover shadow-[0_-15px_40px_-15px_rgba(0,0,0,0.05)] cursor-pointer">
+<div class="flex items-center gap-4">
+<div class="w-12 h-12 rounded-full overflow-hidden border border-whisper-border shrink-0">
+<img alt="David Kim" class="w-full h-full object-cover grayscale" data-alt="A minimalist, high-end professional headshot of a male restaurant runner. The portrait is captured with a modern corporate aesthetic, featuring bright, even lighting and a clinical off-white background. The subject is framed symmetrically with a neutral expression. The visual style embodies a 'Gallery-Airy' feel, utilizing subtle tonal shifts and deep zinc-blacks for contrast." src="https://lh3.googleusercontent.com/aida-public/AB6AXuD4x1K6ybayto3qiUj4vmHOS6uY1U2_LKTLmKLTZgUfpwFEUXE307htUf5HxlSe48be7NXpqzAXSPgA9yT8Kr7BtuGxcaaXHXp5AZbpG5_YBsaToqWa9pFOh7dbKahEGZN1F58Jg66T_0iHuISZ89cEhgmrXXnjTOCB7WgY6sfzQHo9aUCW9IaqO3-XgszKLxSjzJRuyFRt1IpjYnmN4O9BfIAW8jmj8JABofOFmEi0BzNS5xpm92xiaI4syc-cjut7nj05KwnA5pM"/>
+</div>
+<div>
+<h3 class="font-headline-md text-body-lg font-bold text-on-surface">David Kim</h3>
+<p class="font-label-sm text-label-sm text-secondary">Runner</p>
+</div>
+</div>
+<div class="text-right">
+<span class="font-mono-data text-[1.125rem] text-on-surface block">$195.50</span>
+</div>
+</article>
+<!-- Staff Card 6: Standard (Span 6) -->
+<article class="col-span-1 md:col-span-6 bg-pure-surface border border-whisper-border rounded-xl p-6 flex items-center justify-between gap-6 bento-hover shadow-[0_-15px_40px_-15px_rgba(0,0,0,0.05)] cursor-pointer">
+<div class="flex items-center gap-4">
+<div class="w-12 h-12 rounded-full overflow-hidden border border-whisper-border shrink-0">
+<img alt="Chloe Davies" class="w-full h-full object-cover grayscale" data-alt="A minimalist, high-end professional headshot of a female restaurant barista. The portrait is captured with a modern corporate aesthetic, featuring bright, even lighting and a clinical off-white background. The subject is framed symmetrically with a neutral expression. The visual style embodies a 'Gallery-Airy' feel, utilizing subtle tonal shifts and deep zinc-blacks for contrast." src="https://lh3.googleusercontent.com/aida-public/AB6AXuDgJqm2Jy9mUzvI34zd1ecXPsql3Zfvc4cIwGX0qMY6NKez08G41Nsk6W4wXwDcQcgf-yGECbfIPfAQVkG7-RQdSt1FBrytA39pq0Q89UoaLOn9yENOIkSevwC8HYdWEl3OigW9ocBUec4ILhjOE1eImQoa-klI7pbpdjH2Po1ysOOl99d43Bb0Cw43NYFXT9YO6bUQjnlBqAFJAMl7ccIDhWl07lPp0F1IZCG-LnjSghejWK9grXU6o0Ymzu-7hzn42xrW38O-l0I"/>
+</div>
+<div>
+<h3 class="font-headline-md text-body-lg font-bold text-on-surface">Chloe Davies</h3>
+<p class="font-label-sm text-label-sm text-secondary">Barista</p>
+</div>
+</div>
+<div class="text-right">
+<span class="font-mono-data text-[1.125rem] text-on-surface block">$310.00</span>
+</div>
+</article>
+</section>
+<!-- Architecturally Integrated "Add Staff" Action Block -->
+<section class="mt-12 md:mt-16 border-t border-whisper-border pt-12 flex justify-center">
+<button class="bg-primary hover:bg-surface-tint text-on-primary font-label-sm text-label-sm px-8 py-4 rounded-lg flex items-center gap-3 transition-transform duration-200 active:scale-[0.98] shadow-[0_10px_30px_-10px_rgba(0,108,73,0.3)]">
+<span class="material-symbols-outlined" style="font-size: 20px;">person_add</span>
+                Add New Staff Member
+            </button>
+</section>
+</main>
+<!-- BottomNavBar (Mobile Only) -->
+<nav class="md:hidden bg-pure-surface dark:bg-inverse-surface fixed bottom-0 w-full z-50 rounded-t-xl border-t border-whisper-border shadow-[0_-15px_40px_-15px_rgba(0,0,0,0.05)] flex justify-around items-center px-4 pb-6 pt-3">
+<!-- Inactive: Home -->
+<a class="flex flex-col items-center justify-center text-on-secondary-container dark:text-on-secondary-fixed-variant hover:text-primary transition-colors group" href="#">
+<span class="material-symbols-outlined mb-1 group-active:scale-90 duration-200" style="font-size: 24px;">home</span>
+<span class="font-label-sm text-label-sm text-[10px]">Home</span>
+</a>
+<!-- Inactive: Summary -->
+<a class="flex flex-col items-center justify-center text-on-secondary-container dark:text-on-secondary-fixed-variant hover:text-primary transition-colors group" href="#">
+<span class="material-symbols-outlined mb-1 group-active:scale-90 duration-200" style="font-size: 24px;">analytics</span>
+<span class="font-label-sm text-label-sm text-[10px]">Summary</span>
+</a>
+<!-- Active: Staff -->
+<a class="flex flex-col items-center justify-center text-primary dark:text-primary-fixed-dim bg-secondary-fixed/50 dark:bg-secondary-fixed-dim/10 rounded-xl px-4 py-1 transform scale-90 duration-200" href="#">
+<span class="material-symbols-outlined mb-1" style="font-variation-settings: 'FILL' 1; font-size: 24px;">group</span>
+<span class="font-label-sm text-label-sm text-[10px]">Staff</span>
+</a>
+<!-- Inactive: Settings -->
+<a class="flex flex-col items-center justify-center text-on-secondary-container dark:text-on-secondary-fixed-variant hover:text-primary transition-colors group" href="#">
+<span class="material-symbols-outlined mb-1 group-active:scale-90 duration-200" style="font-size: 24px;">settings</span>
+<span class="font-label-sm text-label-sm text-[10px]">Settings</span>
+</a>
+</nav>
+<!-- Lightweight interaction script -->
+<script>
+        document.querySelectorAll('article.bento-hover').forEach(card => {
+            card.addEventListener('mousedown', () => {
+                card.style.transform = 'scale(0.99) translateY(0)';
+            });
+            card.addEventListener('mouseup', () => {
+                card.style.transform = 'translateY(-2px)';
+            });
+            card.addEventListener('mouseleave', () => {
+                card.style.transform = '';
+            });
+        });
+    </script>
+</body></html>
