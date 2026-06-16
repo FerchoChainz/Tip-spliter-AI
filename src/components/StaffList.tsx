@@ -21,7 +21,7 @@ export const StaffList: React.FC<StaffListProps> = ({ onNavigate, currentTab }) 
   
   // Filter & Sort State
   const [searchTerm, setSearchTerm] = useState('');
-  const [sortBy, setSortBy] = useState<'name' | 'role'>('name');
+  const [sortBy] = useState<'name' | 'role'>('name');
   const [sortOrder, setSortOrder] = useState<'asc' | 'desc'>('asc');
   const [showSearch, setShowSearch] = useState(false);
 

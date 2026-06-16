@@ -23,10 +23,9 @@ function App() {
       setLoading(false);
     });
 
-    // Listen for auth changes
     const { data: { subscription } } = supabase.auth.onAuthStateChange((event, session) => {
       setSession(session);
-      if (event === 'SIGNED_OUT' || event === 'USER_DELETED') {
+      if ((event as string) === 'SIGNED_OUT' || (event as string) === 'USER_DELETED') {
         // Clear local cache/state if needed
         setCurrentScreen('home');
       }
